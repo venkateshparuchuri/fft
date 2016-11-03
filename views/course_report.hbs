@@ -1,0 +1,102 @@
+<div class="col-md-10">
+    <div class="row nav-div">
+       <h3 class="heading-class" style="margin-bottom: 5px;">Reports</h3>
+    </div>
+<div class="row nav-div" style="background-color:#6E6E6E; font-face:verdana; font-size:20px">
+<span style="text-align:center">Course Wise Summary Report</span>
+</div>
+<div class="row main-container" style="margin-left:5px; margin-top:10px; margin-right:0px; padding-top:20px; padding-bottom:20px;">
+  <form id="coursewise_report" action="/reports/course" method="post">
+	<div class="row">
+	    <div class="col-md-12">
+			<div class="col-md-4 form-inline" style="text-align:center">
+				<label for="college">College: </label>
+				<select class="form-control" style="width: 150px" name="college_name" id="course_college_name">
+					<option value="0">Select college</option>
+					<option value="2">Krishna college</option>
+				    <option value="6">Govt.Womens College</option>
+			    </select>
+			</div>
+
+			<div class="col-md-4 form-inline" style="text-align:center">
+				<label for="category">Category: </label>
+				<select class="form-control" style="width: 150px" id="course_category_id" name="category" disabled>
+					<option value="0">select category</option>
+					<option value="3">Staff</option>
+					<option value="2">Students</option>
+				</select>
+			</div>
+
+			<div class="col-md-4 form-inline" style="text-align:center">
+				<label for="category">Grade: </label>
+				<select class="form-control" style="width: 150px" id="grade_id" name="grade" disabled>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+
+		    <div class="col-md-4 form-inline" style="text-align:center">
+				<span>
+					<label for="date">Date: </label>
+					<input type="text" style="width: 150px;border-radius: 2px;" id="datepicker" name="date" placeholder="mm/dd/yyyy">
+				</span>
+            </div>
+
+            <div class="col-md-4 form-inline" style="text-align:center">
+				<button type="submit" class="btn btn-warning" id="form_submit">Run Report</button>
+			</div>
+		</div>
+	</div>
+  </form>
+</div>
+{{#if data}}
+<div class="row main-container" style="margin-left:5px; margin-top:10px; margin-right:0px; padding-top:20px; padding-bottom:20px;">
+    <div class="row">
+      <center><h4>{{clgname}}</h4></center>
+    </div>
+    <div class="row">
+      <center><h4>Course Wise Summery Report</h4></center>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-7"><span style="font-size: 13px;">Generated On: {{generatedDate}}</span></div>
+    </div>
+	<div class="row">
+	  <div class="col-md-10 col-md-offset-1">
+		<table class="table table-hover" id="example" style="border-width:1px; border-style:solid;">
+		   <thead> 
+                <tr><th style="text-align:left" colspan="9">Report Date :  <span style="font-weight:normal;">{{date}}</span></th></tr>
+			   <tr><th style="text-align:left" colspan="9">Category  : <span style="font-weight:normal;">{{catname}}</span></th></tr>
+			    <tr><th style="text-align:left" colspan="9">Grade  :<span style="font-weight:normal;">{{grade_name}}</span></th></tr>
+			 
+			<tr>
+		         <th style="text-align:center">S.No</th>
+		         <th style="text-align:center">Course</th>
+		         <th style="text-align:center">Total</th>
+		         <th style="text-align:center">Present</th>
+		         <th style="text-align:center">Absent</th>
+		         <th style="text-align:center">Latecomers</th>
+		         <th style="text-align:center">Avg%</th>
+             </tr>
+           </thead>
+			
+		   {{#each data}} 
+		    <tr>
+		         <td style="text-align:center">{{sno}}</td>
+		         <td style="text-align:center">{{DepartmentFName}}</td>
+		         <td style="text-align:center">{{total}}</td>
+		         <td style="text-align:center">{{present}}</td>
+		         <td style="text-align:center">{{absent}}</td>
+		         <td style="text-align:center">{{latecomers}}</td>
+		         <td style="text-align:center">{{average}}</td>
+             </tr>
+		  {{/each}} 
+		</table>
+      </div>
+	</div>
+</div>
+{{else}}
+<center><h5 style="color:#848484;padding-top: 135px;">{{text}}</h5></center>
+{{/if}}
+</div>	

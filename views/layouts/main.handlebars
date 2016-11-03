@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Attendance System</title>
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/design.css">
+	<link rel="stylesheet" href="/css/tabletools.css">
+	<link rel="stylesheet" href="/css/tablestyles.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+<div class="container-fluid college-module" style="padding-left:0px">
+<div id="data-info" data-weeklystats="{{statstObject}}" ></div>
+	<div class="col-md-2 full-bar hidden-xs">
+		<div class="main-module">
+			<div class="main-module--header">FFT</div>
+		</div>
+		<div class="nav-side-menu main-module-list">
+ 
+		<div class="menu-list">
+  
+			<ul id="menu-content" class="menu-content collapse out">
+                <li class="active" style="padding-left=0px"><a href="/"><i class="fa fa-dashboard fa-1x"></i> Dashboard</a></li>
+                <li style="padding-left=0px" data-toggle="collapse" data-target="#reports" class="collapsed">
+                  <a href="#"><i class="fa fa-user"></i> Reports <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="reports">
+                    <a href="/reports/daily"><li style="padding-left:27px">Daily Report</li></a>
+                    <a href="/reports/monthly"><li style="padding-left:27px">Monthly Report</li></a>
+                    <a href="/reports/course"><li style="padding-left:27px">Coursewise Report</li></a>
+                    <a href="/reports/college/all"><li style="padding-left:27px">All Colleges Summary</li></a>
+                </ul>
+
+			</ul>
+
+		</div>
+
+		</div>
+
+	</div>
+	<div class="col-md-1 full-bar-xs visible-xs">
+		<div class="main-module">
+			<div class="main-module--header">FFT</div>
+		</div>
+	</div>
+
+{{{body}}}
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/amcharts.js"></script>
+<script src="/js/serial.js"></script>
+<script src="/js/pie.js"></script>
+<script src="/js/light.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="/js/table.js"></script>
+<script src="/js/table1.js"></script>
+<div id="fb-root"></div>
+<script>
+
+	$(document).ready(function () {
+		$(window).resize(function() {
+
+			$('.full-bar').css('height', window.innerHeight);
+
+		});
+
+		var chart = AmCharts.makeChart("krishnastaff", {
+			"type": "serial",
+			"theme": "light",
+			"legend": {
+				"equalWidths": false,
+				"valueAlign": "bottom",
+				"valueText": "[[title]]",
+				"valueWidth": 10
+			},
+			"categoryField": "week",
+			"rotate": true,
+			"startDuration": 1,
+			"categoryAxis": {
+				"gridPosition": "start",
+				"position": "left"
+			},
+			"trendLines": [],
+			"graphs": [
+				{
+					"balloonText": "Absent:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-2",
+					"lineAlpha": 0.2,
+					"title": "Absent",
+					"type": "column",
+					"valueField": "obsent",
+					"columnSpacing":8
+				},
+				{
+					"balloonText": "Latecomers:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-3",
+					"lineAlpha": 0.2,
+					"title": "Latecomers",
+					"type": "column",
+					"valueField": "latecomers",
+					"columnSpacing":8
+
+				},
+				{
+					"balloonText": "present:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-1",
+					"lineAlpha": 0.2,
+					"title": "Present",
+					"type": "column",
+					"valueField": "present",
+					"columnSpacing":8
+
+				}
+			],
+			"depth3D": 3,
+			"guides": [],
+			"valueAxes": [
+				{
+					"id": "ValueAxis-1",
+					"position": "top",
+					"axisAlpha": 0
+				}
+			],
+			"allLabels": [],
+			"balloon": {},
+			"titles": [],
+			"dataProvider": [
+				{
+					"week": '',
+					"present": "{{krishna_presented_staff}}",
+					"obsent": "{{krishna_absented_staff}}",
+					"latecomers":"{{krishna_lateby_staff}}"
+				}
+			],
+			"export": {
+				"enabled": true
+			}
+
+		});
+		var chart = AmCharts.makeChart("krishnastudents", {
+			"type": "serial",
+			"theme": "light",
+			"legend": {
+				"equalWidths": false,
+				"valueAlign": "bottom",
+				"valueText": "[[title]]",
+				"valueWidth": 10
+			},
+			"categoryField": "week",
+			"rotate": true,
+			"startDuration": 1,
+			"categoryAxis": {
+				"gridPosition": "start",
+				"position": "left"
+			},
+			"trendLines": [],
+			"graphs": [
+				{
+					"balloonText": "Absent:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-2",
+					"lineAlpha": 0.2,
+					"title": "Absent",
+					"type": "column",
+					"valueField": "obsent"
+				},
+				{
+					"balloonText": "Latecomers:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-3",
+					"lineAlpha": 0.2,
+					"title": "Latecomers",
+					"type": "column",
+					"valueField": "latecomers"
+				},
+				{
+					"balloonText": "present:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-1",
+					"lineAlpha": 0.2,
+					"title": "Present",
+					"type": "column",
+					"valueField": "present"
+				}
+			],
+			"depth3D": 3,
+			"guides": [],
+			"valueAxes": [
+				{
+					"id": "ValueAxis-1",
+					"position": "top",
+					"axisAlpha": 0
+				}
+			],
+			"allLabels": [],
+			"balloon": {},
+			"titles": [],
+			"dataProvider": [
+				{
+					"week": "",
+					"present": "{{krishna_presented_student}}",
+					"obsent": "{{krishna_absented_student}}",
+					"latecomers":"{{krishna_lateby_student}}"
+				}
+			],
+			"export": {
+				"enabled": true
+			}
+
+		});
+		var chart = AmCharts.makeChart("womenstaff", {
+			"type": "serial",
+			"theme": "light",
+			"legend": {
+				"equalWidths": false,
+				"valueAlign": "bottom",
+				"valueText": "[[title]]",
+				"valueWidth": 10
+			},
+			"categoryField": "week",
+			"rotate": true,
+			"startDuration": 1,
+			"categoryAxis": {
+				"gridPosition": "start",
+				"position": "left"
+			},
+			"trendLines": [],
+			"graphs": [
+				{
+					"balloonText": "Absent:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-2",
+					"lineAlpha": 0.2,
+					"title": "Absent",
+					"type": "column",
+					"valueField": "obsent"
+				},
+				{
+					"balloonText": "Latecomers:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-3",
+					"lineAlpha": 0.2,
+					"title": "Latecomers",
+					"type": "column",
+					"valueField": "latecomers"
+				},
+				{
+					"balloonText": "present:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-1",
+					"lineAlpha": 0.2,
+					"title": "Present",
+					"type": "column",
+					"valueField": "present"
+				}
+			],
+			"depth3D": 3,
+			"guides": [],
+			"valueAxes": [
+				{
+					"id": "ValueAxis-1",
+					"position": "top",
+					"axisAlpha": 0
+				}
+			],
+			"allLabels": [],
+			"balloon": {},
+			"titles": [],
+			"dataProvider": [
+				{
+					"week": "",
+					"present": "{{womens_presented_staff}}",
+					"obsent": "{{womens_absented_staff}}",
+					"latecomers":"{{womens_lateby_staff}}"
+				}
+			],
+			"export": {
+				"enabled": true
+			}
+
+		});
+		var chart = AmCharts.makeChart("womenstudents", {
+			"type": "serial",
+			"theme": "light",
+			"legend": {
+				"equalWidths": false,
+				"valueAlign": "bottom",
+				"valueText": "[[title]]",
+				"valueWidth": 10
+			},
+			"categoryField": "week",
+			"rotate": true,
+			"startDuration": 1,
+			"categoryAxis": {
+				"gridPosition": "start",
+				"position": "left"
+			},
+			"trendLines": [],
+			"graphs": [
+				{
+					"balloonText": "Absent:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-2",
+					"lineAlpha": 0.2,
+					"title": "Absent",
+					"type": "column",
+					"valueField": "obsent"
+				},
+				{
+					"balloonText": "Latecomers:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-3",
+					"lineAlpha": 0.2,
+					"title": "Latecomers",
+					"type": "column",
+					"valueField": "latecomers"
+				},
+				{
+					"balloonText": "present:[[value]]",
+					"fillAlphas": 0.8,
+					"id": "AmGraph-1",
+					"lineAlpha": 0.2,
+					"title": "Present",
+					"type": "column",
+					"valueField": "present"
+				}
+			],
+			"depth3D": 3,
+			"guides": [],
+			"valueAxes": [
+				{
+					"id": "ValueAxis-1",
+					"position": "top",
+					"axisAlpha": 0
+				}
+			],
+			"allLabels": [],
+			"balloon": {},
+			"titles": [],
+			"dataProvider": [
+				{
+					"week": "",
+					"present": "{{womens_presented_student}}",
+					"obsent": "{{womens_absented_student}}",
+					"latecomers":"{{womens_lateby_student}}"
+				}
+			],
+			"export": {
+				"enabled": true
+			}
+
+		});
+{{#if krishna_stu_status}}
+$('#KrishnaCollegestudentspie').html('<h5 style="color:#848484;padding-top: 135px;padding-left: 170px;">Data not available</h5>');
+{{else}}
+		var chartpie = AmCharts.makeChart( "KrishnaCollegestudentspie", {
+			"type": "pie",
+			"theme": "light",
+			"addClassNames": true,
+			"defs": {
+				"filter": [{
+					"id": "shadow",
+					"width": "200%",
+					"height": "200%",
+					"feOffset": {
+						"result": "offOut",
+						"in": "SourceAlpha",
+						"dx": 0,
+						"dy": 0
+					},
+					"feGaussianBlur": {
+						"result": "blurOut",
+						"in": "offOut",
+						"stdDeviation": 5
+					},
+					"feBlend": {
+						"in": "SourceGraphic",
+						"in2": "blurOut",
+						"mode": "normal"
+					}
+				}]
+			},
+			"dataProvider": [ {
+				"slots": "LateBy 10min",
+				"students":"{{slateby10min}}"
+			}, {
+				"slots": "LateBy 20min",
+				"students":"{{slateby20min}}"
+			}, {
+				"slots": "LateBy 30min",
+				"students":"{{slateby30min}}"
+			}, {
+				"slots": "LateBy 40min",
+				"students":"{{slateby40min}}"
+			}, {
+				"slots": "MoreThan 40min",
+				"students":"{{smorethan40min}}"
+			}],
+			"valueField": "students",
+			"titleField": "slots",
+			"balloon":{
+				"fixedPosition":true
+			},
+			"export": {
+				"enabled": true
+			}
+		} );
+{{/if}}
+{{#if krishna_staff_status}}
+ $('#KrishnaCollegestaffpie').html('<h5 style="color:#848484;padding-top: 135px;padding-left: 170px;">Data not available</h5>');
+ {{else}}
+		var chartpie = AmCharts.makeChart( "KrishnaCollegestaffpie", {
+			"type": "pie",
+			"theme": "light",
+			"addClassNames": true,
+			"defs": {
+				"filter": [{
+					"id": "shadow",
+					"width": "200%",
+					"height": "200%",
+					"feOffset": {
+						"result": "offOut",
+						"in": "SourceAlpha",
+						"dx": 0,
+						"dy": 0
+					},
+					"feGaussianBlur": {
+						"result": "blurOut",
+						"in": "offOut",
+						"stdDeviation": 5
+					},
+					"feBlend": {
+						"in": "SourceGraphic",
+						"in2": "blurOut",
+						"mode": "normal"
+					}
+				}]
+			},
+			"dataProvider": [ {
+				"slots": "LateBy 10min",
+				"staff": "{{lateby10min}}"
+			}, {
+				"slots": "LateBy 20min",
+				"staff": "{{lateby20min}}"
+			}, {
+				"slots": "LateBy 30min",
+				"staff": "{{lateby30min}}"
+			}, {
+				"slots": "LateBy 40min",
+				"staff": "{{lateby40min}}"
+			}, {
+				"slots": "MoreThan 40min",
+				"staff": "{{morethan40min}}"
+			}],
+			"valueField": "staff",
+			"titleField": "slots",
+			"balloon":{
+				"fixedPosition":true
+			},
+			"export": {
+				"enabled": true
+			}
+		} );
+{{/if}}
+{{#if womens_staff_status}}
+$('#WomensCollegestaffpie').html('<h5 style="color:#848484;padding-top: 135px;padding-left: 170px;">Data not available</h5>');
+{{else}}
+		var chartpie = AmCharts.makeChart( "WomensCollegestaffpie", {
+			"type": "pie",
+			"theme": "light",
+			"addClassNames": true,
+			"defs": {
+				"filter": [{
+					"id": "shadow",
+					"width": "200%",
+					"height": "200%",
+					"feOffset": {
+						"result": "offOut",
+						"in": "SourceAlpha",
+						"dx": 0,
+						"dy": 0
+					},
+					"feGaussianBlur": {
+						"result": "blurOut",
+						"in": "offOut",
+						"stdDeviation": 5
+					},
+					"feBlend": {
+						"in": "SourceGraphic",
+						"in2": "blurOut",
+						"mode": "normal"
+					}
+				}]
+			},
+			"dataProvider": [ {
+				"slots": "LateBy 10min",
+				"students":"{{womens_lateby10min}}"
+			}, {
+				"slots": "LateBy 20min",
+				"students":"{{womens_lateby20min}}"
+			}, {
+				"slots": "LateBy 30min",
+				"students":"{{womens_lateby30min}}"
+			}, {
+				"slots": "LateBy 40min",
+				"students":"{{womens_lateby40min}}"
+			}, {
+				"slots": "MoreThan 40min",
+				"students":"{{womens_morethan40min}}"
+			}],
+			"valueField": "students",
+			"titleField": "slots",
+			"balloon":{
+				"fixedPosition":true
+			},
+			"export": {
+				"enabled": true
+			}
+		} );
+{{/if}}
+{{#if women_student_status}}
+$('#WomensCollegestudentspie').html('<h5 style="color:#848484;padding-top: 135px;padding-left: 170px;">Data not available</h5>');
+{{else}}
+		var chartpie = AmCharts.makeChart( "WomensCollegestudentspie", {
+			"type": "pie",
+			"theme": "light",
+			"addClassNames": true,
+			"defs": {
+				"filter": [{
+					"id": "shadow",
+					"width": "200%",
+					"height": "200%",
+					"feOffset": {
+						"result": "offOut",
+						"in": "SourceAlpha",
+						"dx": 0,
+						"dy": 0
+					},
+					"feGaussianBlur": {
+						"result": "blurOut",
+						"in": "offOut",
+						"stdDeviation": 5
+					},
+					"feBlend": {
+						"in": "SourceGraphic",
+						"in2": "blurOut",
+						"mode": "normal"
+					}
+				}]
+			},
+			"dataProvider": [ {
+				"slots": "LateBy 10min",
+				"students":"{{womens_stu_lateby10min}}"
+			}, {
+				"slots": "LateBy 20min",
+				"students":"{{womens_stu_lateby20min}}"
+			}, {
+				"slots": "LateBy 30min",
+				"students":"{{womens_stu_lateby30min}}"
+			}, {
+				"slots": "LateBy 40min",
+				"students":"{{womens_stu_lateby40min}}"
+			}, {
+				"slots": "MoreThan 40min",
+				"students":"{{womens_stu_morethan40min}}"
+			}],
+			"valueField": "students",
+			"titleField": "slots",
+			"balloon":{
+				"fixedPosition":true
+			},
+			"export": {
+				"enabled": true
+			}
+		} );
+{{/if}}
+var objectStats=$('#data-info').data('weeklystats');
+var charttwo = AmCharts.makeChart("weelystaffbar", {
+			"theme": "light",
+			"type": "serial",
+			"startDuration": 2,
+			"dataProvider": objectStats.weeklystaff,
+			//"dataProvider": objectStats.lastweek_staff,
+			"valueAxes": [{
+				"position": "left",
+				"axisAlpha":0,
+				"gridAlpha":0
+			}],
+			"graphs": [{
+				"balloonText": "Present: <b>[[value]]</b>",
+				"colorField": "Pcolor",
+				"fillAlphas": 0.85,
+				"lineAlpha": 0.1,
+				"type": "column",
+				//"topRadius":1,
+				"valueField": "present"
+			},{
+				"balloonText": "Absent: <b>[[value]]</b>",
+				"colorField": "Acolor",
+				"fillAlphas": 0.85,
+				"lineAlpha": 0.1,
+				"type": "column",
+				//"topRadius":1,
+				"valueField": "absent"
+			}],
+			"depth3D": 40,
+			"angle": 30,
+			"chartCursor": {
+				"categoryBalloonEnabled": false,
+				"cursorAlpha": 0,
+				"zoomable": false
+			},
+			"categoryField": "week",
+			"categoryAxis": {
+				"gridPosition": "start",
+				"axisAlpha":0,
+				"gridAlpha":0
+
+			},
+			"export": {
+				"enabled": true
+			}
+
+		},0);
+		var chartone = AmCharts.makeChart("weeklystudentsbar", {
+			"theme": "light",
+			"type": "serial",
+			"startDuration": 2,
+			"dataProvider": objectStats.weeklystudent,
+			//"dataProvider": objectStats.lastweek_student,
+			"valueAxes": [{
+				"position": "left",
+				"axisAlpha":0,
+				"gridAlpha":0
+			}],
+			"graphs": [{
+				"balloonText": "Present: <b>[[value]]</b>",
+				"colorField": "Pcolor",
+				"fillAlphas": 0.8,
+				"lineAlpha": 0.1,
+				"type": "column",
+				//"topRadius":1,
+				"valueField": "present"
+			},{
+				"balloonText": "Absent: <b>[[value]]</b>",
+				"colorField": "Acolor",
+				"fillAlphas": 0.85,
+				"lineAlpha": 0.1,
+				"type": "column",
+				//"topRadius":1,
+				"valueField": "absent"
+			}],
+			"depth3D": 40,
+			"angle": 100,
+			"chartCursor": {
+				"categoryBalloonEnabled": false,
+				"cursorAlpha": 0,
+				"zoomable": false
+			},
+			"categoryField": "week",
+			"categoryAxis": {
+				"gridPosition": "start",
+				"axisAlpha":0,
+				"gridAlpha":0
+
+			},
+			"export": {
+				"enabled": true
+			}
+
+		},0);
+		var target= chartone;
+		chart.startDuration = 0;
+		target['angle'] = 20;
+		chart.validateNow();
+		var target= charttwo;
+		chart.startDuration = 0;
+		target['angle'] = 20;
+		chart.validateNow();
+	});
+</script>
+<script>
+$(function() {
+    $('#datepicker').datepicker();
+    var currentDate = new Date();
+    $('#datepicker').datepicker({
+        inline: true,
+        showOtherMonths: true,
+        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#datepicker").datepicker("setDate", currentDate);
+    $("li").click(function(){
+        $("li").removeClass('active');
+        $(this).addClass('active');
+    });
+    $('#example').dataTable( {
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "/js/copy_csv_xls_pdf.swf"
+        }
+    });
+    var kri_coursedata = {"0":"select course",
+                        "2":"MPC TELUGU",
+                        "3":"MPC ENGLISH",
+                        "4":"BI.P.C  TELUGU",
+                        "5":"BI.P.C ENGLISH",
+                        "6":"H E C TELUGU",
+                        "7":"CEC TELUGU",
+                        "45":"MPC TELUGU  FIRST YEAR",
+                        "46":"MPC ENGLISH  FIRST YEAR",
+                        "47":"BI.P.C  ENGLISH  FIRST YEAR",
+                        "48":"BI.P.C TELUGU  FIRST YEAR",
+                        "49":"C E C  FIRST YEAR",
+                        "50":"H E C  FIRST YEAR",
+                        "56":"BI.P.C  ENGLISH",
+                        "57":"BI.P.C TELUGU",
+                        "58":"C E C",
+                        "59":"H E C"};
+      var womens_coursedata = {"0":"select course",
+                                 "9":"CEC-2",
+                                "10":"HEC-2",
+                                "11":"MPC-2",
+                                "12":"C.T-2",
+                                "13":"BiPC-2",
+                                "14":"O.A.S-2",
+                                "15":"F.G.M-2",
+                                "27":"CEC I-D  FIRST YEAR",
+                                "29":"CEC I-E  FIRST YEAR",
+                                "30":"MPC   FIRST YEAR",
+                                "31":"MPC I-A  FIRST YEAR",
+                                "32":"MPC I-B   FIRST YEAR",
+                                "33":"MPC I-C  FIRST YEAR",
+                                "34":"I BiPC  FIRST YEAR",
+                                "35":"I-A BiPC  FIRST YEAR",
+                                "36":"I-B BiPC  FIRST YEAR",
+                                "37":"BiPC I-C   FIRST YEAR",
+                                "38":"O.A.S   FIRST YEAR",
+                                "39":"F.G.M   FIRST YEAR",
+                                "40":"M.P.H.W  FIRST YEAR",
+                                "41":"M.L.T  FIRST YEAR",
+                                "42":"HEC I-TM  FIRST YEAR",
+                                "43":"HEC I-F   FIRST YEAR",
+                                "44":"C.T   FIRST YEAR",
+                                "60":"BI.P.C I",
+                                "61":"M.P.H.W",
+                                "62":"P.T",
+                                "63":"CT I"};
+              var clg_catdata = {"0":"select",
+                                 "3":"staff",
+                                 "2":"student"};
+            var kri_staffdata = {"0":"select course",
+                                "53":"KC Staff"};
+          var women_staffdata = {"0":"select course",
+                                 "54":"Teaching",
+                                 "55":"Non-teaching"};
+
+    $('#college_id').on('change', function() {
+      var clgval = $('#college_id').val();
+      var catval = $('#category_id').val();    
+      if (clgval === "2" || clgval === 'Krishna college') {
+        $('#category_id').attr('disabled', false);
+        $("#course_id").children('option').hide();
+        $("#category_id").children('option').hide();
+        $("#course_id :selected").removeAttr("selected");
+        $("#category_id :selected").removeAttr("selected"); 
+        $.each(clg_catdata, function(key, value) {  
+        $('#category_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value));
+        });
+      } else if (clgval === "6" || clgval === 'Govt.Womens College') {
+        $('#category_id').attr('disabled', false);
+        $("#course_id").children('option').hide();
+        $("#category_id").children('option').hide();
+        $("#course_id :selected").removeAttr("selected");
+        $("#category_id :selected").removeAttr("selected"); 
+        $.each(clg_catdata, function(key, value) {   
+        $('#category_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value));
+        });
+      } else if (clgval === "0" || clgval === 'Select college') {
+        $('#category_id').attr('disabled', 'disabled');
+        $('#course_id').attr('disabled', 'disabled');
+      }
+    });
+   $('#category_id').on('change', function() {
+      var clgval = $('#college_id').val();
+      var catval = $('#category_id').val();
+      if ((clgval === '2' || clgval === 'Krishna college') && catval === '3') {
+        $('#course_id').attr('disabled', false);
+        $("#course_id").children('option').hide();
+        $.each(kri_staffdata, function(key, value) { 
+        $('#course_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value)); 
+        });
+      } else if ((clgval === '2' || clgval === 'Krishna college') && catval === '2') {
+        $('#course_id').attr('disabled', false);
+        $("#course_id").children('option').hide();
+        $.each(kri_coursedata, function(key, value) { 
+        $('#course_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value)); 
+        });
+      } else if ((clgval === '6' || clgval === 'Govt.Womens College') && catval === '3') {
+        $('#course_id').attr('disabled', false);
+        $("#course_id").children('option').hide();
+        $.each(women_staffdata, function(key, value) { 
+        $('#course_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value)); 
+        });
+      } else if ((clgval === '6' || clgval === 'Govt.Womens College') && catval === '2') {
+        $('#course_id').attr('disabled', false);
+        $("#course_id").children('option').hide();
+        $.each(womens_coursedata, function(key, value) { 
+        $('#course_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value)); 
+        });
+      } else if (catval === '0' || catval === 'select course') {
+        $('#course_id').attr('disabled', 'disabled');
+      }
+   });
+   $('#course_college_name').on('change', function() {
+      var clgval = $('#course_college_name').val();
+      if (clgval != '0' && clgval != 'Select college') {
+        $('#course_category_id').attr('disabled', false);
+      }else{
+      	$('#course_category_id').attr('disabled', 'disabled');
+      	$('#grade_id').attr('disabled','disabled');
+      }
+    });
+    $('#course_category_id').on('change', function() {
+        var categoryval = $('#course_category_id').val();
+          var grade_data = {"0":"select grade",
+                             "":"All",
+                            "OC":"OC",
+                            "CS":"CS",
+                            "BC":"BC",
+                            "AC":"AC",
+                            "BC-D":"BC-D",
+                            "A":"A",
+                            "SC":"SC",
+                            "BC-A":"BC-A",
+                            "S":"S",
+                            "BC.-A":"BC.-A",
+                            "BC-E":"BC-E",
+                            "ST":"ST",
+                            "BC-B":"BC-B",
+                            "BC.B":"BC.B",
+                            "BC-A":"BC-A"};
+        var staff_grade_data = {"0":"select grade",
+                          "A":"A"};
+      if (categoryval === '3' || categoryval === 'Staff') {
+        $("#grade_id").children('option').hide();
+        $("#grade_id :selected").removeAttr("selected");
+        $('#grade_id').attr('disabled', false);
+        $.each(staff_grade_data, function(key, value) { 
+        $('#grade_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value)); 
+        });
+      } else if (categoryval === '2' || categoryval === 'Students') {
+        $("#grade_id").children('option').hide();
+        $("#grade_id :selected").removeAttr("selected");
+        $('#grade_id').attr('disabled', false);
+        $.each(grade_data, function(key, value) { 
+        $('#grade_id')
+        .append($("<option></option>")
+        .attr("value",key)
+        .text(value)); 
+        });
+      } else if(categoryval === '0' || categoryval === 'select category'){
+      	$('#grade_id').attr('disabled', 'disabled');
+      }
+    });
+
+});
+ </script>
+ <script>
+ $(function() {
+     var womens_staff_course={"0":"select",
+							   "54":"Teaching",
+							   "55":"Non-teaching"};
+    var womens_students_course={"0":"select",
+						   	 	"9":"CEC-2",
+						       "10":"HEC-2",
+						       "11":"MPC-2",
+						       "12":"C.T-2",
+						       "13":"BiPC-2",
+						       "14":"O.A.S-2",
+							   "27":"CEC I-D  FIRST YEAR",
+							   "29":"CEC I-E  FIRST YEAR",
+						       "30":"MPC   FIRST YEAR",
+						       "31":"MPC I-A  FIRST YEAR",
+						       "32":"MPC I-B   FIRST YEAR",
+						       "33":"MPC I-C  FIRST YEAR",
+						       "34":"I BiPC  FIRST YEAR",
+						       "35":"I-A BiPC  FIRST YEAR",
+						       "36":"I-B BiPC  FIRST YEAR",
+						       "37":"BiPC I-C   FIRST YEAR",
+						       "38":"O.A.S   FIRST YEAR",
+						       "39":"F.G.M   FIRST YEAR",
+						       "40":"M.P.H.W  FIRST YEAR",
+						       "41":"M.L.T  FIRST YEAR",
+						       "42":"HEC I-TM  FIRST YEAR",
+						       "43":"HEC I-F   FIRST YEAR",
+						       "44":"C.T   FIRST YEAR",
+						       "60":"BI.P.C I",
+						       "61":"M.P.H.W",
+						       "62":"P.T",
+						       "63":"CT I"};
+   var krishna_students_course={"0":"select",
+							 	"2":"MPC TELUGU",
+							    "3":"MPC ENGLISH",
+							    "4":"BI.P.C  TELUGU",
+							    "5":"BI.P.C ENGLISH",
+							    "6":"H E C TELUGU",
+							    "7":"CEC TELUGU",
+							   "45":"MPC TELUGU  FIRST YEAR",
+							   "46":"MPC ENGLISH  FIRST YEAR",
+							   "47":"BI.P.C  ENGLISH  FIRST YEAR",
+							   "48":"BI.P.C TELUGU  FIRST YEAR",
+							   "49":"C E C  FIRST YEAR",
+							   "50":"H E C  FIRST YEAR",
+							   "56":"BI.P.C  ENGLISH",
+							   "57":"BI.P.C TELUGU",
+							   "58":"C E C",
+							   "59":"H E C"};
+ var krishna_staff_course={
+		 	"0":"select",
+		   "53":"KC STAFF"
+};
+$("#college_select").change(function(){
+   	$('#category_select').attr('disabled', false); 
+   	if(($('#college_select').val()=="Govt.Womens College" || $('#college_select').val()=="6") &&
+   	   ($('#category_select').val()=="Staff" || $('#category_select').val()=="3")){
+   		$("#course_select").children('option').hide();
+   	$("#course_select :selected").removeAttr("selected");
+        $.each(womens_staff_course, function(key, value) {   
+        $('#course_select').append($("<option></option>").attr("value",key).text(value)); 
+      });
+    } else if(($('#college_select').val()=="Govt.Womens College" || $('#college_select').val()=="6") &&
+          ($('#category_select').val()=="students" || $('#category_select').val()=="2") ){
+	    $("#course_select").children('option').hide();
+	    $("#course_select :selected").removeAttr("selected");
+       	$.each(womens_students_course, function(key, value) {   
+       	$('#course_select')
+         .append($("<option></option>")
+         .attr("value",key)
+         .text(value)); 
+      });
+    }else if(($('#college_select').val()=="Krishna college" || $('#college_select').val()=="2") && 
+	     ($('#category_select').val()=="Staff" || $('#category_select').val()=="3")){
+	      	 $("#course_select").children('option').hide();
+	      	 $("#course_select :selected").removeAttr("selected");
+       	$.each(krishna_staff_course, function(key, value) {  
+  
+         $('#course_select')
+         .append($("<option></option>")
+         .attr("value",key)
+         .text(value)); 
+      });
+    } else if(($('#college_select').val()=="Krishna college" || $('#college_select').val()=="2") && 
+	      ($('#category_select').val()=="students" || $('#category_select').val()=="2")){
+	      	    $("#course_select").children('option').hide();
+	      	    $("#course_select :selected").removeAttr("selected");
+       	$.each(krishna_students_course, function(key, value) {   
+         $('#course_select')
+         .append($("<option></option>")
+         .attr("value",key)
+         .text(value)); 
+      });
+   }else if($('#college_select').val()=="Select college" || $('#college_select').val()=="0"){
+   	   $("#course_select").attr('disabled','disabled');
+	      $("#category_select").attr('disabled','disabled');
+	      $("#status_select").attr('disabled','disabled');	 
+   }
+});
+$("#category_select").change(function(){
+   	$("#course_select").attr('disabled', false);
+    if(($('#college_select').val()=="Govt.Womens College" || $('#college_select').val()=="6") &&
+   	   ($('#category_select').val()=="Staff" || $('#category_select').val()=="3")){
+   		$("#course_select").children('option').hide();
+   	$("#course_select :selected").removeAttr("selected");
+        $.each(womens_staff_course, function(key, value) {   
+        $('#course_select').append($("<option></option>").attr("value",key).text(value)); 
+      });
+    } else if(($('#college_select').val()=="Govt.Womens College" || $('#college_select').val()=="6") &&
+          ($('#category_select').val()=="students" || $('#category_select').val()=="2") ){
+	    $("#course_select").children('option').hide();
+	    $("#course_select :selected").removeAttr("selected");
+       	$.each(womens_students_course, function(key, value) {   
+       	$('#course_select')
+         .append($("<option></option>")
+         .attr("value",key)
+         .text(value)); 
+      });
+    }else if(($('#college_select').val()=="Krishna college" || $('#college_select').val()=="2") && 
+	     ($('#category_select').val()=="Staff" || $('#category_select').val()=="3")){
+	      	 $("#course_select").children('option').hide();
+	      	 $("#course_select :selected").removeAttr("selected");
+       	$.each(krishna_staff_course, function(key, value) {  
+  
+         $('#course_select')
+         .append($("<option></option>")
+         .attr("value",key)
+         .text(value)); 
+      });
+    } else if(($('#college_select').val()=="Krishna college" || $('#college_select').val()=="2") && 
+	      ($('#category_select').val()=="students" || $('#category_select').val()=="2")){
+	      	    $("#course_select").children('option').hide();
+	      	    $("#course_select :selected").removeAttr("selected");
+       	$.each(krishna_students_course, function(key, value) {   
+         $('#course_select')
+         .append($("<option></option>")
+         .attr("value",key)
+         .text(value)); 
+      });
+   } else if($('#category_select').val()=="select category" || $('#category_select').val()==""){
+   	$("#course_select").attr('disabled', 'disabled');
+   }
+ });
+  
+  $("#course_select").change(function(){
+   	if(($("#course_select").val()==="0") || $("#course_select").val()==="select" || $('#category_select').val()=="select category" || $('#category_select').val()=="0"){
+   		$("#status_select").attr('disabled', 'disabled');
+   	}else{
+   	    $("#status_select").attr('disabled', false);
+   	}
+   });
+ });
+ </script>
+</body>
+</html>

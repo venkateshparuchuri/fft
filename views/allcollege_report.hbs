@@ -1,0 +1,86 @@
+<div class="col-md-10">
+    <div class="row nav-div">
+       <h3 class="heading-class" style="margin-bottom: 5px;">Reports</h3>
+    </div>
+<div class="row nav-div" style="background-color:#6E6E6E; font-face:verdana; font-size:20px">
+<span style="text-align:center">All College Summary Report</span>
+</div>
+<div class="row main-container" style="margin-left:5px; margin-top:10px; margin-right:0px; padding-top:20px; padding-bottom:20px;">
+  <form action="/reports/college/all" method="post">
+	<div class="row">
+	    <div class="col-md-12">
+			
+			<div class="col-md-3 col-md-offset-1 form-inline" style="text-align:center">
+				<label for="category">Category: </label>
+				<select class="form-control" style="width: 150px" name="type">
+					<option value="0">select category</option>
+					<option value="3">Staff</option>
+					<option value="2">students</option>
+				</select>
+			</div>
+
+            <div class="col-md-6 col-md-offset-1 form-inline" style="text-align:center">
+				<span>
+					<label for="date">Date: </label>
+					<input type="text" name="date" id="datepicker" placeholder="mm/dd/yyyy">
+				</span>
+            </div>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			
+			<div class="col-md-4 col-md-offset-3 form-inline" style="text-align:center">
+				<button type="submit" class="btn btn-warning">Run Report</button>
+			</div>
+
+		</div>
+	</div>
+  </form>
+</div>
+{{#if data}}
+<div class="row main-container" style="margin-left:5px; margin-top:10px; margin-right:0px; padding-top:20px; padding-bottom:20px;">
+    <div class="row">
+      <center><h4>All Colleges Summery Report</h4></center>
+    </div>
+   
+    <div class="row">
+      <div class="col-md-4 col-md-offset-7"><span style="font-size: 13px;">Generated On: {{generatedDate}}</span></div>
+    </div>
+	<div class="row">
+	  <div class="col-md-10 col-md-offset-1">
+		<table class="table table-hover" id="example" style="border-width:1px; border-style:solid;">
+		   <thead> 
+		   <tr><th style="text-align:left" colspan="9">Report Date :  <span style="font-weight:normal;">{{date}}</span></th></tr>
+			   <tr><th style="text-align:left" colspan="9">Category  : <span style="font-weight:normal;">{{category_name}}</span></th></tr>
+			<tr>
+		         <th style="text-align:center">S.No</th>
+		         <th style="text-align:center">college</th>
+		         <th style="text-align:center">Total</th>
+		         <th style="text-align:center">Present</th>
+		         <th style="text-align:center">Absent</th>
+		         <th style="text-align:center">Latecomers</th>
+		         <th style="text-align:center">Avg%</th>
+             </tr>
+           </thead>
+			
+		   {{#each data}} 
+		    <tr>
+		         <td style="text-align:center">{{sno}}</td>
+		         <td style="text-align:center">{{CompanyFName}}</td>
+		         <td style="text-align:center">{{total}}</td>
+		         <td style="text-align:center">{{presented}}</td>
+		         <td style="text-align:center">{{absented}}</td>
+		         <td style="text-align:center">{{latecomers}}</td>
+		         <td style="text-align:center">{{average}}</td>
+             </tr>
+		  {{/each}} 
+		</table>
+      </div>
+	</div>
+</div>
+{{else}}
+<center><h5 style="color:#848484;padding-top: 135px;">{{text}}</h5></center>
+{{/if}}
+</div>	
